@@ -1,0 +1,5 @@
+.footer-title:before {
+  content: "";
+  display: block;
+  opacity: 0.1;
+}
