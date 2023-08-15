@@ -7,7 +7,9 @@ This repository enables the automation of custom code file generation, managemen
 - Initialize custom code files for new Webflow websites with `npm run init-files sitename` (the site must have a sitemap generated in order to auto generate).
 - Automatically links correct page-specific and global js and css for every page.
 - Minify CSS and JS files automatically to optimize performance.
-- Host assets externally in the /assets folder (useful for hosting larger video files)
+- If DEV_MODE is true, automatically picks the local dev server only if it's running. This allows for fast updates.
+- Host assets externally in the /assets folder (useful for hosting larger video files).
+- Automatic deployment when you push to main. 
 
 ## Getting Started
 
@@ -44,3 +46,4 @@ npm run minify sitename
 npm run minify sitename page1
 ```
 9. During Development, easiest to set the global variables like this: DEV_MODE = true, LOAD_MINIFIED = false, then flipping the variables after the site is live.
+10. When finished development, be sure to minify your files, push to GitHub, update global variables in Webflow.
