@@ -46,6 +46,9 @@ const generateFiles = async (site, pages) => {
   // Create global directory
   await fs.ensureDir(`${basePath}/global`);
 
+  // Create assets directory
+  await fs.ensureDir(`${basePath}/assets`);
+
   // Create global files if they don't exist
   for (const file of ['head.js', 'footer.js', 'head.css']) {
     const filePath = `${basePath}/global/${file}`;
