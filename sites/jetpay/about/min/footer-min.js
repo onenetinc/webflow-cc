@@ -1,1 +1,1 @@
-$(window).on("load",(function(){console.log("about footer code2 yahh!!")}));
+$(document).on("load",(function(){console.log("running foooter code.. changed!")}));
