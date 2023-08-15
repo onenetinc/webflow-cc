@@ -1,1 +1,3 @@
-console.log("about head code");
+$(window).on('load',function(){
+  console.log("about head code2");
+})
