@@ -1,23 +1,58 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
+require('dotenv').config();
+
+const port = process.env.PORT || 3000; // if you change the port, the global-footer and global-head files will also need to be updated 
+const app = express();
 
 // Enable CORS for all routes
-
-const app = express();
-const port = 3000;
-
 app.use(cors());
 
-// Static files serving
-app.use('/sites', express.static(path.join(__dirname, 'sites')));
-app.use('/sites/:siteName/assets', express.static(path.join(__dirname, 'sites', req.params.siteName, 'assets')));
+// create dynamic routes for serverless functions to be served locally for testing
+const functionsDir = path.join(__dirname, '.netlify', 'functions');
+if (fs.existsSync(functionsDir)) {
+  fs.readdirSync(functionsDir).forEach((site) => {
+    const siteDir = path.join(functionsDir, site);
 
-// Check dev server endpoint
+    // Read all function files for the site
+    fs.readdirSync(siteDir).forEach((file) => {
+      const functionPath = path.join(siteDir, file);
+      const functionName = file.split('.')[0];
+
+      // Import the function
+      const func = require(functionPath);
+
+      // Create a route for the function
+      app.get(`/.netlify/functions/${site}/${functionName}`, async (req, res) => {
+        const result = await func.handler(req, {});
+        res.status(result.statusCode).send(result.body);
+      });
+
+      console.log(`Route created for /.netlify/functions/${site}/${functionName}`);
+    });
+  });
+} else {
+  console.warn(`Directory ${functionsDir} does not exist. No functions loaded.`);
+}
+
+// Serve static files
+app.use('/sites', express.static(path.join(__dirname, 'sites')));
+// app.use('/sites/:siteName/assets', express.static(path.join(__dirname, 'sites', req.params.siteName, 'assets')));
+app.use('/sites/:siteName/assets', (req, res, next) => {
+  express.static(path.join(__dirname, 'sites', req.params.siteName, 'assets'))(req, res, next);
+});
+
+// Check dev server endpoint (from webflow)
 app.get('/check-dev-server', (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/config', (req, res) => {
+  res.json({ port: process.env.PORT });
+});
+
 app.listen(port, () => {
-  console.log(`Development server is running at http://localhost:${port}`);
+  console.log(`Dev server is running at http://localhost:${port}`);
 });

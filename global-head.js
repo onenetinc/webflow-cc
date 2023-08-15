@@ -1,6 +1,7 @@
 // const LOAD_MINIFIED = false; // SET IN WEBFLOW - Change to false to load non-minified files
 // const DEV_MODE = true; // SET IN WEBFLOW - Change to false to not load dev server
 (async function() {
+  
   var devServerURL = 'http://localhost:3000';
   var netlifyURL = 'https://onenet-wf.netlify.app/sites/jetpay';
   var baseURL;
