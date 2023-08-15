@@ -18,7 +18,7 @@ This repository enables the automation of custom code file generation, managemen
 3. To initialize custom code files for a new website, run the following command, replacing `sitename` with your specific website name (The sitename must be the webflow staging link to the site minus the .webflow.io. Eg: in this case, the webflow staging url would need to be: sitename.webflow.io. Also, the site would need to have a sitemap generated):
 ```bash
 npm run init-files sitename
-
+```
 4. Add scripts to Webflow global head:
 ```javascript
 <script>
