@@ -1,6 +1,6 @@
 (async function() {
   var devServerURL = 'http://localhost:3000';
-  var netlifyURL = `https://onenet-wf.netlify.app/sites/${SITENAME}`;
+  var netlifyURL = `https://onenet-cc.netlify.app/sites/${SITENAME}`;
   var baseURL;
 
   // Function to check if the dev server is running

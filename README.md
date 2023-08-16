@@ -30,11 +30,11 @@ npm run init-files sitename
   const SITENAME = 'sitename' // Change to the proper sitename folder in webflow-cc
   dev server is running, otherwise will load files hosted from netlify
 </script>
-<script src="https://onenet-wf.netlify.app/global-head.js"></script>
+<script src="https://onenet-cc.netlify.app/global-head.js"></script>
 ```
 5. Add script to global footer:
 ```javascript
-<script src="https://onenet-wf.netlify.app/global-footer.js"></script>
+<script src="https://onenet-cc.netlify.app/global-footer.js"></script>
 ```
 6. Start dev server with:
 ```bash
