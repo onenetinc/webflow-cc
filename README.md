@@ -26,7 +26,9 @@ npm run init-files sitename
 ```javascript
 <script>
   const LOAD_MINIFIED = false; // Change to true to load minified files if they exist
-  const DEV_MODE = true; // Change to false to not load dev server. If set to true, it will only load the dev server if the dev server is running, otherwise will load files hosted from netlify
+  const DEV_MODE = true; // Change to false to not load dev server. If set to true, it will only load the dev server if the
+  const SITENAME = 'sitename' // Change to the proper sitename folder in webflow-cc
+  dev server is running, otherwise will load files hosted from netlify
 </script>
 <script src="https://onenet-wf.netlify.app/global-head.js"></script>
 ```

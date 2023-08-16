@@ -1,6 +1,6 @@
 (async function() {
   var devServerURL = 'http://localhost:3000';
-  var netlifyURL = 'https://onenet-wf.netlify.app/sites/jetpay';
+  var netlifyURL = `https://onenet-wf.netlify.app/sites/${SITENAME}`;
   var baseURL;
 
   // Function to check if the dev server is running
@@ -15,7 +15,7 @@
 
   // Determine the base URL depending on the dev server availability
   if (DEV_MODE && await checkDevServer()) {
-    baseURL = devServerURL + '/sites/jetpay';
+    baseURL = devServerURL + `/sites/${SITENAME}`;
   } else {
     baseURL = netlifyURL;
   }
