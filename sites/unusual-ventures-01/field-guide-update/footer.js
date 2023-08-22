@@ -1,4 +1,12 @@
 $(window).on("load", function () {
+
+  $('#prevBtnFaux').click(function(){
+  	$('#prevBtn').click();
+  })
+  $('#nextBtnFaux').click(function(){
+  	$('#nextBtn').click();
+  })
+
   const emptySlides = $(".grid-mask-3 .w-slide:has(.w-dyn-empty)").length;
   if (emptySlides == 2) {
     $(".grid-slider-3 .fg-slider-nav").remove();

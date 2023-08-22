@@ -11,17 +11,20 @@
   },
   "tools": {
     "components": [
-      "fg2"
+      "fg2",
+      "fg-nav"
     ]
   },
-  "topics": {
+  "topics-template": {
     "components": [
-      "fg2"
+      "fg2",
+      "fg-nav"
     ]
   },
-  "tags": {
+  "tags-template": {
     "components": [
-      "fg2"
+      "fg2",
+      "fg-nav"
     ]
   },
   "field-guide-update": {
@@ -31,7 +34,14 @@
   },  
   "articles-template": {
     "components": [
-      "fg2"
+      "fg2",
+      "fg-nav"
+    ]
+  },
+  "tools-template": {
+    "components": [
+      "fg2",
+      "fg-nav"
     ]
   }
 }
