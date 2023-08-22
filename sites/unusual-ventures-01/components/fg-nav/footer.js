@@ -1,5 +1,4 @@
-console.log("almost running");
-$(window).on("load", function () {
+// $(window).on("load", function () {
   console.log("running");
   function slugify(text) {
     return text
@@ -185,4 +184,4 @@ $(window).on("load", function () {
     }
     init = true;
   });
-});
+// });

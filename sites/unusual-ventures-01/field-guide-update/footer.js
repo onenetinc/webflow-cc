@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+// $(window).on("load", function () {
 
   $('#prevBtnFaux').click(function(){
   	$('#prevBtn').click();
@@ -178,4 +178,4 @@ $(window).on("load", function () {
     $(".uv2-body")[0].style.overflow = "auto";
   });
   // END MODAL JS
-});
+// });

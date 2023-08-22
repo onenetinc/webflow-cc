@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+// $(window).on("load", function () {
   const emptySlides = $(".grid-mask-3 .w-slide:has(.w-dyn-empty)").length;
   if (emptySlides == 2) {
     $(".grid-slider-3 .fg-slider-nav").remove();
@@ -188,4 +188,4 @@ $(window).on("load", function () {
     $(".uv2-body")[0].style.overflow = "auto";
   });
   // END MODAL JS
-});
+// });

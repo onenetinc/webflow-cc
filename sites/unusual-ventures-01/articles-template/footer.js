@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+// $(window).on("load", function () {
   function slugify(text) {
     return text
       .toString()
@@ -627,10 +627,10 @@ $(window).on("load", function () {
       $(this).hide();
     }
   });
-});
+// });
 
 // Update meta tags
-$(document).ready(function () {
+// $(document).ready(function () {
   const $seoTitle = $(".custom-seo-title");
   const seoTitleText = $seoTitle.text().trim();
   if (seoTitleText) {
@@ -638,4 +638,4 @@ $(document).ready(function () {
     $('meta[property="og:title"]').attr("content", seoTitleText);
     $('meta[property="twitter:title"]').attr("content", seoTitleText);
   }
-});
+// });

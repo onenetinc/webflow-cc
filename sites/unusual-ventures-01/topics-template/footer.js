@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+// $(window).on("load", function () {
   // setTimeout(function () {
   $(".article-thumb").each(function () {
     const src = $(this).attr("src");
@@ -226,4 +226,4 @@ $(window).on("load", function () {
       $(this).hide();
     }
   });
-});
+// });

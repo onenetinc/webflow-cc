@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+// $(window).on("load", function () {
   // sort tools
   $(".article-item").each(function () {
     const $articleItem = $(this);
@@ -48,4 +48,4 @@ $(window).on("load", function () {
     });
 
   $(".fg-topic-overlay:has(p.w-dyn-bind-empty)").addClass("no-description");
-});
+// });
