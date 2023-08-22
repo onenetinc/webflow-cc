@@ -33,13 +33,6 @@
   }
 
 
-  // Check for template folder
-  const parts = pagePath.split('/');
-  const templateFolder = `${parts[0]}-template`;
-  if (!await fileExists(baseURL + '/' + pagePath) && await fileExists(baseURL + '/' + templateFolder)) {
-    pagePath = templateFolder;
-  }
-
   var globalFiles = [
     'global/head.js',
     'global/head.css',
