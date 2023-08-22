@@ -65,7 +65,7 @@
   var loadFile = function(file) {
     var element;
     var filePath = LOAD_MINIFIED 
-      ? file.replace(/(\/head\.js$|\/head\.css$)/, '/min/head-min$1') 
+      ? file.replace(/\/head\.js$/, '/min/head-min.js').replace(/\/head\.css$/, '/min/head-min.css') 
       : file;
   
     if (file.endsWith('.js')) {
