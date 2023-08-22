@@ -13,6 +13,13 @@
   var pagePath = window.location.pathname.replace(/^\//, '');
   if (pagePath === '') pagePath = 'home';
 
+  // Check if the page path should use a template
+  var segments = pagePath.split('/');
+  if (segments.length > 1 && fs.existsSync(path.join(__dirname, 'sites', SITENAME, segments[0] + '-template'))) {
+    pagePath = segments[0] + '-template';
+  }
+  
+
   // Check for template folder
   const parts = pagePath.split('/');
   const templateFolder = `${parts[0]}-template`;
