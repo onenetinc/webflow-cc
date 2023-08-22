@@ -1,0 +1,98 @@
+  
+  /* style testimonial slider dots */
+	.uv2-left-vertical-dots.w-slider-nav.w-round > div {
+  	border-radius: 15px;
+    height: 66px;
+    width: 10px;
+    margin-bottom: .7em;
+    background-color: #E8E8F5;
+    overflow: hidden;
+    position: relative;
+  }
+  .uv2-left-vertical-dots.w-slider-nav.w-round > div.w-active:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 0%;
+    border-radius: 15px;
+    background: #181599;
+    animation: moveDown 10s forwards;
+    animation-timing-function: ease;
+  }
+  .uv2-left-vertical-dots .w-slider-dot:focus {
+  	box-shadow: none;
+  }
+  @keyframes moveDown {
+    100% {
+      height:100%;
+    }
+	}
+  /*---------------*/
+
+
+	.uv2-hide {
+  	display: none !important;	
+  }
+
+	.uv2-caret {
+  	background-position: right 20px center !important;
+  }
+  
+  .uv2-team-resources-link:hover .uv2-caret {
+  	background-position: right 15px bottom 50% !important;
+  }
+  
+  .uv2-quotes:before, .uv2-quotes:after {
+  	content: '"'
+  }
+  
+  /* adjust main container to fit tablets and smaller laptops */
+  
+  @media (max-width:1320px) and (min-width: 991px) {
+    .uv2-page-hero-text-col {
+    	padding-left: 0px;
+    }
+  }
+  
+  /* adjust hero height on larger iphone landscape */ 
+  @media only screen and (max-width: 991px) and (min-width: 600px) and (orientation: landscape) {
+		.uv2-team-image, .uv2-page-hero-wrapper3 {
+    	height: 190vh;
+    }
+  }
+  
+  /* adjust hero height on iphone se landscape */
+  @media only screen and (max-width: 568px) and (orientation: landscape) {
+
+  }
+  
+  /* Manual accordian */
+  .uv2-manual-accordian-rich-text {
+  	max-height: 0px;
+    transition: all 400ms ease;
+  }
+  .uv2-vertical-spacer {
+  	height: 0px;
+    transition: all 400ms ease;
+  }
+  .acc-line {
+  	/*opacity: 1;*/
+    transition: all 400ms ease;
+  }
+  .active-acc .uv2-manual-accordian-rich-text {
+    transition: all 400ms ease;
+  }
+  .active-acc .uv2-vertical-spacer {
+  	height: 15px;
+    transition: all 400ms ease;
+  }
+  .active-acc .acc-line {
+  	opacity: 0;
+    transition: all 400ms ease;
+  }
+  
+

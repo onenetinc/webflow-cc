@@ -1,0 +1,48 @@
+{
+  "field-guide": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "articles": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
+  },
+  "tools": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
+  },
+  "topics-template": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
+  },
+  "tags-template": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
+  },
+  "field-guide-update": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "articles-template": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
+  },
+  "tools-template": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
+  }
+}
