@@ -38,7 +38,7 @@
 
   // Load components mapping
   var componentsMapping = await fetch(baseURL + '/components-mapping.json').then(res => res.json());
-  const pageComponents = componentsMapping[pagePath].components || [];
+  const pageComponents = componentsMapping[pagePath]?.components || [];
 
   var loadFile = function(file) {
     var element;
