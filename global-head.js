@@ -28,8 +28,8 @@
 
   // Check if the page path should use a template
   var segments = pagePath.split('/');
-  if (segments.length > 1 && fs.existsSync(path.join(__dirname, 'sites', SITENAME, segments[0] + '-template'))) {
-    pagePath = segments[0] + '-template';
+  if (segments.length > 1) {
+    pagePath = segments[0] + '-template'; // Always use the template folder for collection URLs
   }
 
 
