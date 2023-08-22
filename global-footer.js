@@ -26,8 +26,10 @@
 
   var loadFile = function(file) {
     var element;
-    var filePath = LOAD_MINIFIED ? file.replace(/\.js$/, '/min.js') : file;
-
+    var filePath = LOAD_MINIFIED 
+      ? file.replace(/\/footer\.js$/, '/min/footer-min.js') 
+      : file;
+  
     if (file.endsWith('.js')) {
       element = document.createElement('script');
       element.src = baseURL + '/' + filePath;

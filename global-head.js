@@ -47,10 +47,27 @@
   var componentsMapping = await fetch(baseURL + '/components-mapping.json').then(res => res.json());
   const pageComponents = componentsMapping[pagePath]?.components || [];
 
+  // var loadFile = function(file) {
+  //   var element;
+  //   var filePath = LOAD_MINIFIED ? file.replace(/\.js$/, '/min.js').replace(/\.css$/, '/min.css') : file;
+
+  //   if (file.endsWith('.js')) {
+  //     element = document.createElement('script');
+  //     element.src = baseURL + '/' + filePath;
+  //   } else if (file.endsWith('.css')) {
+  //     element = document.createElement('link');
+  //     element.href = baseURL + '/' + filePath;
+  //     element.rel = 'stylesheet';
+  //   }
+
+  //   if (element) document.head.appendChild(element);
+  // };
   var loadFile = function(file) {
     var element;
-    var filePath = LOAD_MINIFIED ? file.replace(/\.js$/, '/min.js').replace(/\.css$/, '/min.css') : file;
-
+    var filePath = LOAD_MINIFIED 
+      ? file.replace(/(\/head\.js$|\/head\.css$)/, '/min/head-min$1') 
+      : file;
+  
     if (file.endsWith('.js')) {
       element = document.createElement('script');
       element.src = baseURL + '/' + filePath;
@@ -59,7 +76,7 @@
       element.href = baseURL + '/' + filePath;
       element.rel = 'stylesheet';
     }
-
+  
     if (element) document.head.appendChild(element);
   };
 
