@@ -13,6 +13,13 @@
   var pagePath = window.location.pathname.replace(/^\//, '');
   if (pagePath === '') pagePath = 'home';
 
+  // Check for template folder
+  const parts = pagePath.split('/');
+  const templateFolder = `${parts[0]}-template`;
+  if (!await fileExists(baseURL + '/' + pagePath) && await fileExists(baseURL + '/' + templateFolder)) {
+    pagePath = templateFolder;
+  }
+
   // Load components mapping
   var componentsMapping = await fetch(baseURL + '/components-mapping.json').then(res => res.json());
   const pageComponents = componentsMapping[pagePath]?.components || [];
@@ -34,3 +41,12 @@
 
   loadFile(pagePath + '/footer.js');
 })();
+
+async function fileExists(url) {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}

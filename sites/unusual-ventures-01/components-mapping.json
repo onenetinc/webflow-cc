@@ -28,5 +28,10 @@
     "components": [
       "fg2"
     ]
+  },  
+  "articles-template": {
+    "components": [
+      "fg2"
+    ]
   }
 }

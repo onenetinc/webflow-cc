@@ -1,20 +1,7 @@
-// const axios = require('axios');
-// const fs = require('fs-extra');
-// const xml2js = require('xml2js');
-// const urlModule = require('url');
-
 import axios from 'axios';
 import fs from 'fs-extra';
 import xml2js from 'xml2js';
 import urlModule from 'url';
-
-
-// const fetchPages = async (site) => {
-//   // Adjust the URL to match the Webflow endpoint
-//   const response = await axios.get(`https://${site}.webflow.io/api/pages`);
-//   return response.data.pages || [];
-// };
-
 
 const fetchPages = async (site) => {
   // Fetch the sitemap
@@ -33,8 +20,11 @@ const fetchPages = async (site) => {
     const parts = urlPath.split('/').filter(Boolean);
 
     // If there's only one part and it's not "search", it's a first-level path
-    if ((parts.length === 1 || parts.length === 2) && parts[0] !== 'search') {
+    if (parts.length === 1 && parts[0] !== 'search') {
       firstLevelPaths.add(parts[0]);
+    }
+    if (parts.length > 1) {
+      firstLevelPaths.add(parts[0] + '-template');
     }
   });
 

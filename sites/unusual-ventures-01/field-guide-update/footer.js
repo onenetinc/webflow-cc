@@ -6,24 +6,6 @@ $(window).on("load", function () {
     $(".grid-slider-3 .fg-slider-nav .w-slider-dot:last-child").remove();
   }
 
-  setTimeout(function () {
-    // remove empty trending slides
-    $(".grid-slider-2 .w-slide").each(function () {
-      if ($(this).children().length === 0) {
-        $(this).remove();
-      }
-    });
-    // remove nav dots for empty trending slides
-    let dotCount2 = 0;
-    $(".fg-slider.grid-slider-2 .w-slider-dot").each(function () {
-      if (dotCount2 > $(".fg-slider.grid-slider-2 .w-slide").length - 1) {
-        $(this).remove();
-      }
-      dotCount2++;
-    });
-    Webflow.require("slider").redraw();
-  }, 1000);
-
   $(".fg-featured-left > div:first-child:empty").css("display", "none");
 
   // manual webflow link override

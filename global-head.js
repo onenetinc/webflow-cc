@@ -26,6 +26,13 @@
   var pagePath = window.location.pathname.replace(/^\//, '');
   if (pagePath === '') pagePath = 'home';
 
+  // Check for template folder
+  const parts = pagePath.split('/');
+  const templateFolder = `${parts[0]}-template`;
+  if (!await fileExists(baseURL + '/' + pagePath) && await fileExists(baseURL + '/' + templateFolder)) {
+    pagePath = templateFolder;
+  }
+
   var globalFiles = [
     'global/head.js',
     'global/head.css',
@@ -64,3 +71,12 @@
   globalFiles.forEach(loadFile);
   pageFiles.forEach(loadFile);
 })();
+
+async function fileExists(url) {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}
