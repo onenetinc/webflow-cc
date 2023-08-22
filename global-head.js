@@ -10,15 +10,19 @@
   var checkDevServer = async function() {
     try {
       var response = await fetch(devServerURL + '/check-dev-server');
-      return response.ok;
+      if (response.ok) {
+        baseURL = devServerURL + `/sites/${SITENAME}`;
+      } else {
+        baseURL = netlifyURL;
+      }
     } catch (error) {
-      return false;
+      baseURL = netlifyURL;
     }
   };
 
   // Determine the base URL depending on the dev server availability
-  if (DEV_MODE && await checkDevServer()) {
-    baseURL = devServerURL + `/sites/${SITENAME}`;
+  if (DEV_MODE) {
+    await checkDevServer();
   } else {
     baseURL = netlifyURL;
   }

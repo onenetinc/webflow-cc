@@ -3,12 +3,27 @@
   var netlifyURL = `https://onenet-cc.netlify.app/sites/${SITENAME}`;
   var baseURL;
 
+  // Function to check if the dev server is running
+  var checkDevServer = async function() {
+    try {
+      var response = await fetch(devServerURL + '/check-dev-server');
+      if (response.ok) {
+        baseURL = devServerURL + `/sites/${SITENAME}`;
+      } else {
+        baseURL = netlifyURL;
+      }
+    } catch (error) {
+      baseURL = netlifyURL;
+    }
+  };
+
   // Determine the base URL depending on the dev server availability
   if (DEV_MODE) {
-    baseURL = devServerURL + `/sites/${SITENAME}`;
+    await checkDevServer();
   } else {
     baseURL = netlifyURL;
   }
+
 
   var pagePath = window.location.pathname.replace(/^\//, '');
   if (pagePath === '') pagePath = 'home';

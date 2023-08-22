@@ -6,7 +6,8 @@
   },
   "articles": {
     "components": [
-      "fg2"
+      "fg2",
+      "fg-nav"
     ]
   },
   "tools": {
@@ -31,7 +32,7 @@
     "components": [
       "fg2"
     ]
-  },  
+  },
   "articles-template": {
     "components": [
       "fg2",
