@@ -231,3 +231,28 @@ jQuery.noConflict();
     
 })(jQuery);
 
+
+const applicationDateString = $('#applicationDate').text().trim();
+const applicationDate = new Date(applicationDateString); // Replace with the actual date
+const today = new Date();
+const differenceInDays = (applicationDate - today) / (1000 * 3600 * 24);
+
+console.log("differenceInDays: ", differenceInDays);
+
+if (differenceInDays >= 0 && differenceInDays <= 10) {
+  $("[data-application='closed']").hide();
+  $("[data-application='open']").show();
+  $('#applicationBlock').css("display","block");
+  setTimeout(function(){
+    $('#applicationBlock, .uv2-academy-image-el').css("opacity","1");
+  }, 300)
+  console.log("form IS showing");
+} else {
+  $("[data-application='closed']").show();
+  $("[data-application='open']").hide();
+  console.log("form NOT showing");
+  $('#applicationBlock').css("display","block");
+  setTimeout(function(){
+    $('#applicationBlock, .uv2-academy-image-el').css("opacity","1");
+  }, 300)
+}
