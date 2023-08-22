@@ -5,7 +5,8 @@
 // const CleanCSS = require('clean-css');
 import fs from 'fs-extra';
 import path from 'path';
-import Terser from 'terser';
+// import Terser from 'terser';
+import * as Terser from 'terser';
 import CleanCSS from 'clean-css';
 
 import { fileURLToPath } from 'url';
