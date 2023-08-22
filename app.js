@@ -1,8 +1,22 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors');
-require('dotenv').config();
+// const express = require('express');
+// const path = require('path');
+// const fs = require('fs');
+// const cors = require('cors');
+// require('dotenv').config();
+import express from 'express';
+import path from 'path';
+import fs from 'fs';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config();
+
 
 const port = process.env.PORT || 3000; // if you change the port, the global-footer and global-head files will also need to be updated 
 const app = express();

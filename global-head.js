@@ -2,7 +2,6 @@
 // const DEV_MODE = true; // SET IN WEBFLOW - Change to false to not load dev server
 // const SITENAME = 'jetpay' // SET IN WEBFLOW - Change to the proper sitename folder in webflow-cc
 (async function() {
-  
   var devServerURL = 'http://localhost:3000';
   var netlifyURL = `https://onenet-cc.netlify.app/sites/${SITENAME}`;
   var baseURL;
@@ -37,9 +36,13 @@
     pagePath + '/head.css',
   ];
 
+  // Load components mapping
+  var componentsMapping = await fetch(baseURL + '/components-mapping.json').then(res => res.json());
+  const pageComponents = componentsMapping[pagePath].components || [];
+
   var loadFile = function(file) {
     var element;
-    var filePath = LOAD_MINIFIED ? file.replace(/\/(head|footer)\.js$/, '/min/$1-min.js').replace(/\/head\.css$/, '/min/head-min.css') : file;
+    var filePath = LOAD_MINIFIED ? file.replace(/\.js$/, '/min.js').replace(/\.css$/, '/min.css') : file;
 
     if (file.endsWith('.js')) {
       element = document.createElement('script');
@@ -52,6 +55,11 @@
 
     if (element) document.head.appendChild(element);
   };
+
+  pageComponents.forEach(component => {
+    loadFile(`components/${component}/head.js`);
+    loadFile(`components/${component}/head.css`);
+  });
 
   globalFiles.forEach(loadFile);
   pageFiles.forEach(loadFile);

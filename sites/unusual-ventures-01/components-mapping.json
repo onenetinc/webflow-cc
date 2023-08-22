@@ -1,0 +1,32 @@
+{
+  "field-guide": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "articles": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "tools": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "topics": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "tags": {
+    "components": [
+      "fg2"
+    ]
+  },
+  "field-guide-update": {
+    "components": [
+      "fg2"
+    ]
+  }
+}

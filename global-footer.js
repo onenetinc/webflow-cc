@@ -3,18 +3,8 @@
   var netlifyURL = `https://onenet-cc.netlify.app/sites/${SITENAME}`;
   var baseURL;
 
-  // Function to check if the dev server is running
-  var checkDevServer = async function() {
-    try {
-      var response = await fetch(devServerURL + '/check-dev-server');
-      return response.ok;
-    } catch (error) {
-      return false;
-    }
-  };
-
   // Determine the base URL depending on the dev server availability
-  if (DEV_MODE && await checkDevServer()) {
+  if (DEV_MODE) {
     baseURL = devServerURL + `/sites/${SITENAME}`;
   } else {
     baseURL = netlifyURL;
@@ -23,17 +13,24 @@
   var pagePath = window.location.pathname.replace(/^\//, '');
   if (pagePath === '') pagePath = 'home';
 
-  var footerFiles = [
-    'global/footer.js',
-    pagePath + '/footer.js'
-  ];
+  // Load components mapping
+  var componentsMapping = await fetch(baseURL + '/components-mapping.json').then(res => res.json());
+  const pageComponents = componentsMapping[pagePath].components || [];
 
   var loadFile = function(file) {
-    var element = document.createElement('script');
-    var filePath = LOAD_MINIFIED ? file.replace(/\/footer\.js$/, '/min/footer-min.js') : file;
-    element.src = baseURL + '/' + filePath;
-    document.body.appendChild(element);
+    var element;
+    var filePath = LOAD_MINIFIED ? file.replace(/\.js$/, '/min.js') : file;
+
+    if (file.endsWith('.js')) {
+      element = document.createElement('script');
+      element.src = baseURL + '/' + filePath;
+      document.body.appendChild(element);
+    }
   };
 
-  footerFiles.forEach(loadFile);
+  pageComponents.forEach(component => {
+    loadFile(`components/${component}/footer.js`);
+  });
+
+  loadFile(pagePath + '/footer.js');
 })();

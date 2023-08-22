@@ -1,7 +1,13 @@
-const axios = require('axios');
-const fs = require('fs-extra');
-const xml2js = require('xml2js');
-const urlModule = require('url');
+// const axios = require('axios');
+// const fs = require('fs-extra');
+// const xml2js = require('xml2js');
+// const urlModule = require('url');
+
+import axios from 'axios';
+import fs from 'fs-extra';
+import xml2js from 'xml2js';
+import urlModule from 'url';
+
 
 // const fetchPages = async (site) => {
 //   // Adjust the URL to match the Webflow endpoint
@@ -45,6 +51,15 @@ const generateFiles = async (site, pages) => {
 
   // Create global directory
   await fs.ensureDir(`${basePath}/global`);
+
+  // Create components directory
+  await fs.ensureDir(`${basePath}/components`);
+
+  // Create components-mapping.json file
+  const mappingFilePath = `${basePath}/components-mapping.json`;
+  if (!await fs.pathExists(mappingFilePath)) {
+    await fs.writeJson(mappingFilePath, { mappings: [] }, { spaces: 2 });
+  }
 
   // Create assets directory
   await fs.ensureDir(`${basePath}/assets`);

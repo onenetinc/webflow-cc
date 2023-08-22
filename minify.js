@@ -1,8 +1,20 @@
 #!/usr/bin/env node
-const fs = require('fs-extra');
-const path = require('path');
-const Terser = require('terser');
-const CleanCSS = require('clean-css');
+// const fs = require('fs-extra');
+// const path = require('path');
+// const Terser = require('terser');
+// const CleanCSS = require('clean-css');
+import fs from 'fs-extra';
+import path from 'path';
+import Terser from 'terser';
+import CleanCSS from 'clean-css';
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
 
 const site = process.argv[2];
 const page = process.argv[3];
@@ -10,9 +22,7 @@ const page = process.argv[3];
 const basePath = path.join(__dirname, 'sites', site);
 
 const minifyJS = async (filePath) => {
-  console.log('Minifying JS file:', filePath);
   const code = await fs.readFile(filePath, 'utf-8');
-  console.log('Original code:', code);
   const result = await Terser.minify(code);
 
   if (result.error) {
@@ -20,32 +30,11 @@ const minifyJS = async (filePath) => {
     return;
   }
 
-  console.log('Terser result:', result);
-
   const minPath = path.join(path.dirname(filePath), 'min');
   await fs.ensureDir(minPath);
   const minFilePath = path.join(minPath, path.basename(filePath).replace('.js', '-min.js'));
   await fs.writeFile(minFilePath, result.code);
-  console.log('Minified JS file written to:', minFilePath);
 };
-
-// const minifyJS = async (filePath) => {
-//   const code = await fs.readFile(filePath, 'utf-8');
-//   const result = Terser.minify(code);
-//   if (result.error) {
-//     console.error('Terser error:', result.error);
-//     return;
-//   }
-
-//   if (!result.code) {
-//     console.error('No minified code generated for:', filePath);
-//     return;
-//   }
-
-//   const minPath = path.join(path.dirname(filePath), 'min');
-//   await fs.ensureDir(minPath);
-//   await fs.writeFile(path.join(minPath, path.basename(filePath).replace('.js', '-min.js')), result.code);
-// };
 
 const minifyCSS = async (filePath) => {
   const code = await fs.readFile(filePath, 'utf-8');
@@ -86,7 +75,15 @@ const startMinification = async () => {
     return;
   }
 
+  // Minify global and page-specific files
   await processFiles(targetPath);
+
+  // Minify components
+  const componentsPath = path.join(basePath, 'components');
+  if (await fs.pathExists(componentsPath)) {
+    await processFiles(componentsPath);
+  }
+
   console.log('Minification complete.');
 };
 
