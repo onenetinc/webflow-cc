@@ -1,5 +1,127 @@
 
-console.log("it's alive!")
+
+
+// video link clicks
+
+// $(document).ready(function() {
+
+// console.log("this is running")
+// var player1;
+// function onYouTubeIframeAPIReady() {
+//   player1 = new YT.Player('youtube-player1', {
+    // height: '360',
+    // width: '640',
+    // videoId: 'pPaNVCX8fdY',
+//     events: {
+//       'onReady': onPlayerReady
+//     }
+//   });
+// }
+
+// // The player is ready; you can now play and pause the video using the player object
+// function onPlayerReady(event) {
+//   console.log("the player is rdy")
+// }
+
+// // Load the YouTube API script
+// $.getScript("https://www.youtube.com/iframe_api", function() {
+//   // Once the script is loaded, initialize the YT object and then our player
+//   var ytReady = setInterval(function() {
+//     if (typeof YT !== "undefined" && typeof YT.Player !== "undefined") {
+//       clearInterval(ytReady);
+//       initYouTubePlayer();
+//     }
+//   }, 100);
+// });
+
+
+
+// $(".vidlink").click(function(){
+//   console.log("trying to click..")
+//   player1.playVideo();
+// })
+
+// });
+
+  let player2;
+  let player1;
+
+function initYouTubePlayer() {
+  return new Promise(function(resolve) {
+    var ytReady = setInterval(function() {
+      if (typeof YT !== "undefined" && typeof YT.Player !== "undefined") {
+        clearInterval(ytReady);
+
+        player1 = new YT.Player('youtube-player1', {
+          height: '360',
+          width: '640',
+          videoId: 'pPaNVCX8fdY',
+          events: {
+            'onReady': function(event) {
+              console.log("player1 is ready");
+              checkPlayersReady();
+            }
+          }
+        });
+
+        player2 = new YT.Player('youtube-player2', {
+          height: '360',
+          width: '640',
+          videoId: '4klJIiMidBw',
+          events: {
+            'onReady': function(event) {
+              console.log("player2 is ready");
+              checkPlayersReady();
+            }
+          }
+        });
+      }
+    }, 100);
+
+    function checkPlayersReady() {
+      if (player1 && player2) {
+        resolve();
+      }
+    }
+  });
+}
+
+  // Load the YouTube API script
+  $.getScript("https://www.youtube.com/iframe_api")
+    .then(initYouTubePlayer)
+    .then(function() {
+
+      $(".vidlink.one").click(function() {
+        console.log("player1.getPlayerState() === YT.PlayerState.PLAYING: ", player1.getPlayerState() === YT.PlayerState.PLAYING)
+        if (player1.getPlayerState() !== YT.PlayerState.PLAYING) {
+          player1.playVideo();
+        }
+      });
+
+      $(".academy-video-modal .academy-hide-video-modal-overlay, .academy-video-modal .academy-video-modal-close").click(function(){
+        if (player1.getPlayerState() === YT.PlayerState.PLAYING) {
+          // vid is playing
+          player1.pauseVideo();
+        }
+      })
+
+
+      $(".vidlink.two").click(function() {
+        if (!player2.getPlayerState() !== YT.PlayerState.PLAYING) {
+          player2.playVideo();
+        }
+      });
+
+      $(".academy-video-modal-2 .academy-hide-video-modal-overlay, .academy-video-modal-2 .academy-video-modal-close").click(function(){
+        if (player2.getPlayerState() === YT.PlayerState.PLAYING) {
+          // vid is playing
+          player2.pauseVideo();
+        }
+      })
+
+    });
+
+
 
 // Show appropriate number of testimonials based on availability in CMS
 const testRefLength = document.querySelectorAll('.uv2-collection-hidden .w-dyn-item').length
@@ -17,48 +139,35 @@ if (testRefLength == 1) {
 
 
 
+
+
 // This adds custom slider autoplay using jquery. Also, needed a .noConflict wrapper in order to work properly
 // Sometimes $() jquery selector won't work without the noConflict wrapper
 
 jQuery.noConflict();
   (function( $ ) {
     $(function() {
-      // More code using $ as alias to jQuery
       let timer = setInterval(function() {
             $('.uv2-wide-testimonial-slider4 .w-slider-arrow-right').click()
-      }, 10000);
+      }, 5000);
       
       $('.uv2-left-vertical-dots .w-slider-dot').bind("click", function() {
         clearInterval(timer)
         timer = setInterval(function() {
             $('.uv2-wide-testimonial-slider4 .w-slider-arrow-right').click()
-        }, 10000);
+        }, 5000);
       });
       
       // set video to stop playing when modal is closed
       const source = $('.modal-video-player iframe')[0].src;  
       $('.uv2-white-play-button').click(function(){
         $('.modal-video-player iframe')[0].src = source;
-      })  
+      })
 
       $('.uv2-em-video-close').click(function(){
         $('.modal-video-player iframe')[0].src = '';
       })
       
-      
-      // remove empty stat slides
-      $('.uv2-stats-slider').find('.w-dyn-empty').each(function(){
-        $(this).closest('.w-slide')[0].remove()           
-        Webflow.require('slider').redraw();
-      })
-      
-      let applicationsOpen = $('.uv2-academy-hero-applications-collection .w-dyn-item > div:first-child')
-      if (applicationsOpen[0].classList.contains('w-condition-invisible')) {
-        // applications are closed
-        $('.uv2-stats-slider').css('marginTop','2em');
-      } else {
-        // applicastions are open
-      }
         
       // manual accordian
       $('.uv2-manual-accordian-wrapper').click(function(){
@@ -98,7 +207,7 @@ jQuery.noConflict();
     const runModalCode = () => {
     
       $(".uv2-cond").each(function () {
-        if ($(this).find(".w-dyn-list > .w-dyn-empty").length > 0) {
+        if ($(this).find(".w-dyn-list > .w-dyn-empty").length > 0 || $(this).find('.w-condition-invisible').length >= 3) {
           $(this).find("> *:first-child").hide();
         }
       });
@@ -237,6 +346,8 @@ const applicationDate = new Date(applicationDateString); // Replace with the act
 const today = new Date();
 const differenceInDays = (applicationDate - today) / (1000 * 3600 * 24);
 
+$('#applicationDateSwap').text(applicationDateString + "!")
+
 console.log("differenceInDays: ", differenceInDays);
 
 if (differenceInDays >= 0 && differenceInDays <= 10) {
@@ -244,7 +355,10 @@ if (differenceInDays >= 0 && differenceInDays <= 10) {
   $("[data-application='open']").show();
   $('#applicationBlock').css("display","block");
   setTimeout(function(){
-    $('#applicationBlock, .uv2-academy-image-el').css("opacity","1");
+    $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
+    setTimeout(function(){
+      $('#leadersSection').css("opacity","1");
+    }, 300)
   }, 300)
   console.log("form IS showing");
 } else {
@@ -253,6 +367,9 @@ if (differenceInDays >= 0 && differenceInDays <= 10) {
   console.log("form NOT showing");
   $('#applicationBlock').css("display","block");
   setTimeout(function(){
-    $('#applicationBlock, .uv2-academy-image-el').css("opacity","1");
+    $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
+    setTimeout(function(){
+      $('#leadersSection').css("opacity","1");
+    }, 300)
   }, 300)
 }

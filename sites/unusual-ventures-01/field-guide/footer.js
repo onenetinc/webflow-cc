@@ -39,7 +39,7 @@
 
   const runModalCode = () => {
     $(".uv2-cond").each(function () {
-      if ($(this).find(".w-dyn-list > .w-dyn-empty").length > 0) {
+      if ($(this).find(".w-dyn-list > .w-dyn-empty").length > 0 || $(this).find('.w-condition-invisible').length >= 3) {
         $(this).find("> *:first-child").hide();
       }
     });
