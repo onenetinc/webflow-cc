@@ -192,8 +192,7 @@
   font-family: Gibson, sans-serif;
 }
 .application-card .hs-email > label {
-  top: 0px;
-  margin: auto 0px
+  top: 19px;
 }
 .hs-form-field {
 	position: relative;
