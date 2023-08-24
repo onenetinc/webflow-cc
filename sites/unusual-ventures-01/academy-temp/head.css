@@ -18,6 +18,10 @@
   vertical-align: middle !important;
 }
 
+.uv2-manual-accordian-wrapper .uv2-flex-row {
+  flex-wrap: nowrap;
+}
+
   /* style testimonial slider dots */
 	.uv2-left-vertical-dots.w-slider-nav.w-round > div {
   	border-radius: 15px;
