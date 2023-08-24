@@ -226,11 +226,13 @@
   background-color: #15138b;
   box-shadow: 0 2px 10px 4px rgb(12 10 57 / 3%);
 }
-.hs-form ul {
-	padding-left: 0px;
-  padding-top: 0px;
-  position: absolute;
-  top: 90%;
+@media (min-width: 992px) {
+  .hs-form ul {
+    padding-left: 0px;
+    padding-top: 0px;
+    position: absolute;
+    top: 90%;
+  }
 }
 .hs-form li {
 	list-style-type: none;
@@ -308,9 +310,11 @@
 .large-hs-form .hs-form .hs-email > label {
 	display: none;
 }
-.large-hs-form .hs-form ul {
-  position: absolute;
-  top: 115%;
+@media (min-width: 992px) {
+  .large-hs-form .hs-form ul {
+    position: absolute;
+    top: 115%;
+  }
 }
 .large-hs-form .hs-form ul label {
   color: #fff;
