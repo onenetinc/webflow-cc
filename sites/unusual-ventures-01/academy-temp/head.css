@@ -14,6 +14,10 @@
   height: 100%;
 }
 
+.uv2-wide-testimonial-mask-academy .w-slide {
+  vertical-align: middle !important;
+}
+
   /* style testimonial slider dots */
 	.uv2-left-vertical-dots.w-slider-nav.w-round > div {
   	border-radius: 15px;
