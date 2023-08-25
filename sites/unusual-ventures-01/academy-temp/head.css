@@ -297,11 +297,7 @@
 	display: flex;
   justify-content: center;
 }
-.large-hs-form .hs-email {
-	width: 100%;
-  max-width: 487px;
-  margin-right: .6em;
-}
+
 .large-hs-form .hs-form input:not(.hs-button):focus, .large-hs-form .hs-form textarea:focus {
 	border-color: #ffffff;
   outline: none;
@@ -314,11 +310,20 @@
     position: absolute;
     top: 115%;
   }
+  .large-hs-form .hs-email {
+    width: 100%;
+    max-width: 487px;
+    margin-right: .6em;
+  }
 }
 @media (max-width: 991px) {
   .large-hs-form .hs-form ul {
     text-align: left;
     padding-top: 10px;
+  }
+  .large-hs-form .hs-email, .large-hs-form .hs-email input {
+    width: 100%;
+    max-width: 100% !important;
   }
 }
 .large-hs-form .hs-form ul label {
