@@ -1,13 +1,9 @@
-// const express = require('express');
-// const path = require('path');
-// const fs = require('fs');
-// const cors = require('cors');
-// require('dotenv').config();
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import dotenv from 'dotenv';
+
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -31,12 +27,15 @@ if (fs.existsSync(functionsDir)) {
     const siteDir = path.join(functionsDir, site);
 
     // Read all function files for the site
-    fs.readdirSync(siteDir).forEach((file) => {
+    fs.readdirSync(siteDir).forEach(async (file) => {
       const functionPath = path.join(siteDir, file);
       const functionName = file.split('.')[0];
 
       // Import the function
-      const func = require(functionPath);
+      // const func = require(functionPath);
+      const func = await import(functionPath).then(module => module.default || module);
+
+      
 
       // Create a route for the function
       app.get(`/.netlify/functions/${site}/${functionName}`, async (req, res) => {
