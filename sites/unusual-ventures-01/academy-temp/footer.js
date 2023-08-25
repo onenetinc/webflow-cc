@@ -55,7 +55,7 @@ function initYouTubePlayer() {
         player1 = new YT.Player('youtube-player1', {
           height: '360',
           width: '640',
-          videoId: 'pPaNVCX8fdY',
+          videoId: '8uuWw2sSwjs',
           events: {
             'onReady': function(event) {
               console.log("player1 is ready");
@@ -67,7 +67,7 @@ function initYouTubePlayer() {
         player2 = new YT.Player('youtube-player2', {
           height: '360',
           width: '640',
-          videoId: '4klJIiMidBw',
+          videoId: 'kzVd0u5rw0o',
           events: {
             'onReady': function(event) {
               console.log("player2 is ready");
