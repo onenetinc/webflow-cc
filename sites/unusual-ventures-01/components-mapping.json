@@ -44,5 +44,11 @@
       "fg2",
       "fg-nav"
     ]
+  },
+  "pmf": {
+    "components": [
+      "fg2",
+      "fg-nav"
+    ]
   }
 }
