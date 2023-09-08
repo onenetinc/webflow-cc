@@ -310,11 +310,12 @@ const today = new Date();
 const differenceInDays = (applicationDate - today) / (1000 * 3600 * 24);
 
 $('#applicationDateSwap').text(applicationDateString + "!")
-
+console.log("differenceInDays: ", differenceInDays);
+console.log("applicationDate: ", applicationDate)
 
 if (!form) {
 
-  if (differenceInDays >= 0 && differenceInDays <= 10) {
+  if (differenceInDays >= -1 && differenceInDays <= 10) {
     $("[data-application='closed']").hide();
     $("[data-application='open']").show();
     $('#applicationBlock').css("display","block");
