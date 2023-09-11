@@ -298,72 +298,37 @@ jQuery.noConflict();
 
 
 
-let form = false;
-if (window.location.href.indexOf('app-open') > -1) {
-  form = true;
-}
-
-
 const applicationDateString = $('#applicationDate').text().trim();
 const applicationDate = new Date(applicationDateString); // Replace with the actual date
 const today = new Date();
 const differenceInDays = (applicationDate - today) / (1000 * 3600 * 24);
+const applicationOpen = differenceInDays >= -1 && differenceInDays <= 9;
+
 
 $('#applicationDateSwap').text(applicationDateString + "!")
-console.log("differenceInDays: ", differenceInDays);
-console.log("applicationDate: ", applicationDate)
 
-if (!form) {
-
-  if (differenceInDays >= -1 && differenceInDays <= 10) {
-    $("[data-application='closed']").hide();
-    $("[data-application='open']").show();
-    $('#applicationBlock').css("display","block");
+if (applicationOpen) {
+  $("[data-application='closed']").hide();
+  $("[data-application='open']").show();
+  $('#applicationBlock').css("display","block");
+  setTimeout(function(){
+    $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
     setTimeout(function(){
-      $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
-      setTimeout(function(){
-        $('#leadersSection').css("opacity","1");
-      }, 300)
+      $('#leadersSection').css("opacity","1");
     }, 300)
-    // console.log("form IS showing");
-  } else {
-    $("[data-application='closed']").show();
-    $("[data-application='open']").hide();
-    // console.log("form NOT showing");
-    $('#applicationBlock').css("display","block");
-    setTimeout(function(){
-      $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
-      setTimeout(function(){
-        $('#leadersSection').css("opacity","1");
-      }, 300)
-    }, 300)
-  }
-
+  }, 300)
+  // console.log("form IS showing");
 } else {
-
-  if (differenceInDays >= 0 && differenceInDays <= 60) {
-    $("[data-application='closed']").hide();
-    $("[data-application='open']").show();
-    $('#applicationBlock').css("display","block");
+  $("[data-application='closed']").show();
+  $("[data-application='open']").hide();
+  // console.log("form NOT showing");
+  $('#applicationBlock').css("display","block");
+  setTimeout(function(){
+    $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
     setTimeout(function(){
-      $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
-      setTimeout(function(){
-        $('#leadersSection').css("opacity","1");
-      }, 300)
+      $('#leadersSection').css("opacity","1");
     }, 300)
-    // console.log("form IS showing");
-  } else {
-    $("[data-application='closed']").show();
-    $("[data-application='open']").hide();
-    // console.log("form NOT showing");
-    $('#applicationBlock').css("display","block");
-    setTimeout(function(){
-      $('#applicationBlock, .uv2-academy-image-el, .academy-hero-content').css("opacity","1");
-      setTimeout(function(){
-        $('#leadersSection').css("opacity","1");
-      }, 300)
-    }, 300)
-  }
-
+  }, 300)
 }
+
 
