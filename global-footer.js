@@ -33,6 +33,11 @@
   if (segments.length > 1) {
     pagePath = segments[0] + '-template'; // Always use the template folder for collection URLs
   }
+
+  var globalFiles = [
+    'global/footer.js',
+  ];
+  
   
 
   // Load components mapping
@@ -55,7 +60,7 @@
   pageComponents.forEach(component => {
     loadFile(`components/${component}/footer.js`);
   });
-
+  globalFiles.forEach(loadFile);
   loadFile(pagePath + '/footer.js');
 })();
 
