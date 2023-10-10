@@ -431,12 +431,12 @@
   $(".w-tab-pane").each(function () {
     let $fgArticleRte = $(this).find(".fg-article-rte");
     if (
-      $fgArticleRte.children().length === 0 ||
-      $fgArticleRte.text().trim() === ""
+      $fgArticleRte.children().length === 0
     ) {
       blankItems.push($(this).index());
     }
   });
+
 
   $(".fg-read-gap > a").each(function () {
     if (blankItems.includes(0) && blankItems.includes(1)) {

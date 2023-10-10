@@ -437,6 +437,7 @@ $(window).on("load", function () {
       blankItems.push($(this).index());
     }
   });
+  console.log("blankItems: ", blankItems);
 
   $(".fg-read-gap > a").each(function () {
     if (blankItems.includes(0) && blankItems.includes(1)) {
