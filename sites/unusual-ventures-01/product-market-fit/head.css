@@ -13,7 +13,7 @@
   height: 100%;
 }
 
-/* hero form */
+/* form */
 
 .hs-form input:not(.hs-button), .hs-form textarea, .hs-form select {
 	width: 100%;
@@ -31,6 +31,7 @@
   outline: none;
   transition: all 200ms ease;
 }
+
 .hs-form {
 	display: flex;
 }
@@ -95,20 +96,23 @@
   background-color: #15138b;
   box-shadow: 0 2px 10px 4px rgb(12 10 57 / 3%);
 }
-@media (min-width: 992px) {
-  .hs-form ul {
-    padding-left: 0px;
-    padding-top: 0px;
-    position: absolute;
-    top: 90%;
-  }
+.hs-form ul {
+  padding-left: 0px;
+  padding-top: 0px !important;
+  text-align: left;
+  color: var(--uv2-grape-shade-1);
+}
+.hs-email .hs-input {
+  margin-bottom: 8px;
+}
+.hs-form ul * {
+  color: var(--uv2-grape-shade-1);
+  margin-bottom: 0px;
 }
 .hs-form li {
 	list-style-type: none;
 }
-.hs-form ul li label{
-	position: static;
-}
+
 .submitted-message {
 	padding: 1em 1.5em;
   border-radius: 5px;
