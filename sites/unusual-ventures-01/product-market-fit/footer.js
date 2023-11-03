@@ -59,8 +59,8 @@ $.getScript("https://www.youtube.com/iframe_api")
 
   // update to most recent spotify embeds
 $.ajax({
-  url: `https://onenet-cc.netlify.app/.netlify/functions/uv/spotify`,
-  // url: `http://localhost:3000/.netlify/functions/uv/spotify`,
+  // url: `https://onenet-cc.netlify.app/.netlify/functions/spotify`,
+  url: `http://localhost:3000/.netlify/functions/spotify`,
   type: "GET"
 })
 .done(function(response) {
@@ -73,7 +73,7 @@ $.ajax({
       console.log("replacing vids")
       // Replace only as many iframes as we have new IDs for
       if (index < episodeIds.length) {
-        const newSrc = `https://open.spotify.com/embed/episode/${episodeIds[index]}?utm_source=generator`;
+        const newSrc = `https://open.spotify.com/embed/episode/${episodeIds[index]}/video?utm_source=generator`;
         $(iframe).attr('src', newSrc);
       }
     });

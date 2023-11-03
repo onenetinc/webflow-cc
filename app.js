@@ -22,29 +22,23 @@ app.use(cors());
 
 // create dynamic routes for serverless functions to be served locally for testing
 const functionsDir = path.join(__dirname, '.netlify', 'functions');
+
 if (fs.existsSync(functionsDir)) {
-  fs.readdirSync(functionsDir).forEach((site) => {
-    const siteDir = path.join(functionsDir, site);
+  // Read all function files in the functions directory
+  fs.readdirSync(functionsDir).forEach(async (file) => {
+    const functionPath = path.join(functionsDir, file);
+    const functionName = file.split('.')[0];
 
-    // Read all function files for the site
-    fs.readdirSync(siteDir).forEach(async (file) => {
-      const functionPath = path.join(siteDir, file);
-      const functionName = file.split('.')[0];
+    // Import the function
+    const func = await import(functionPath).then(module => module.default || module);
 
-      // Import the function
-      // const func = require(functionPath);
-      const func = await import(functionPath).then(module => module.default || module);
-
-      
-
-      // Create a route for the function
-      app.get(`/.netlify/functions/${site}/${functionName}`, async (req, res) => {
-        const result = await func.handler(req, {});
-        res.status(result.statusCode).send(result.body);
-      });
-
-      console.log(`Route created for /.netlify/functions/${site}/${functionName}`);
+    // Create a route for the function
+    app.get(`/.netlify/functions/${functionName}`, async (req, res) => {
+      const result = await func.handler(req, {});
+      res.status(result.statusCode).send(result.body);
     });
+
+    console.log(`Route created for /.netlify/functions/${functionName}`);
   });
 } else {
   console.warn(`Directory ${functionsDir} does not exist. No functions loaded.`);
