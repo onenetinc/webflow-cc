@@ -59,8 +59,8 @@ $.getScript("https://www.youtube.com/iframe_api")
 
   // update to most recent spotify embeds
 $.ajax({
-  // url: `https://onenet-cc.netlify.app/.netlify/functions/spotify`,
-  url: `http://localhost:3000/.netlify/functions/spotify`,
+  url: `https://onenet-cc.netlify.app/.netlify/functions/spotify`,
+  // url: `http://localhost:3000/.netlify/functions/spotify`,
   type: "GET"
 })
 .done(function(response) {
