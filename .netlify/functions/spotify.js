@@ -48,6 +48,11 @@ export async function handler(event, context) {
   
       return {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
+          'Access-Control-Allow-Headers': '*'
+        },
         body: JSON.stringify({ episodeIds })
       };
 
