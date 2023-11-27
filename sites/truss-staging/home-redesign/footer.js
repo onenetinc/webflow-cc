@@ -1,5 +1,4 @@
 
-// parallax:
 gsap.registerPlugin(ScrollTrigger);
 
 // accent intro
@@ -48,6 +47,96 @@ $(".nav-link-block").click(function () {
   $(this).closest(".w-dropdown").triggerHandler("w-close.w-dropdown");
 });
 
+function mobileSliders(){
+  
+  if (window.innerWidth <= 992) {
+    // detect swipes
+    function detectswipe(swiper, func) {
+      swipe_det = new Object();
+      swipe_det.sX = 0;
+      swipe_det.sY = 0;
+      swipe_det.eX = 0;
+      swipe_det.eY = 0;
+      var min_x = 20; //min x swipe for horizontal swipe
+      var max_x = 40; //max x difference for vertical swipe
+      var min_y = 40; //min y swipe for vertical swipe
+      var max_y = 50; //max y difference for horizontal swipe
+      var direc = "";
+      swiper[0].addEventListener(
+        "touchstart",
+        function (e) {
+          var t = e.touches[0];
+          swipe_det.sX = t.screenX;
+          swipe_det.sY = t.screenY;
+        },
+        false
+      );
+      swiper[0].addEventListener(
+        "touchmove",
+        function (e) {
+          var t = e.touches[0];
+          swipe_det.eX = t.screenX;
+          swipe_det.eY = t.screenY;
+          // calculate the direction of the swipe
+          var isHorizontal =
+            Math.abs(swipe_det.eX - swipe_det.sX) >
+            Math.abs(swipe_det.eY - swipe_det.sY);
+          // only prevent default when the swipe is more horizontal than vertical
+          if (isHorizontal) {
+            e.preventDefault();
+          }
+        },
+        false
+      );
+      swiper[0].addEventListener(
+        "touchend",
+        function (e) {
+          //horizontal detection
+          if (
+            (swipe_det.eX - min_x > swipe_det.sX ||
+              swipe_det.eX + min_x < swipe_det.sX) &&
+            swipe_det.eY < swipe_det.sY + max_y &&
+            swipe_det.sY > swipe_det.eY - max_y
+          ) {
+            if (swipe_det.eX > swipe_det.sX) direc = "right";
+            else direc = "left";
+          }
+          //vertical detection
+          if (
+            (swipe_det.eY - min_y > swipe_det.sY ||
+              swipe_det.eY + min_y < swipe_det.sY) &&
+            swipe_det.eX < swipe_det.sX + max_x &&
+            swipe_det.sX > swipe_det.eX - max_x
+          ) {
+            if (swipe_det.eY > swipe_det.sY) direc = "down";
+            else direc = "up";
+          }
+    
+          if (direc != "") {
+            if (typeof func == "function") func(swiper, direc);
+          }
+          direc = "";
+        },
+        false
+      );
+    }
+    
+    function myfunction(el, d) {
+      if (d != "") {
+        const $wrap = el.closest('.testimonial-wrap');
+        $wrap.toggleClass('alt-color');
+      }
+    }
+    $('.w-slider').each(function(){
+      let $swiper = $(this)
+      detectswipe($swiper, myfunction);
+    })
+    
+  }
+
+  
+}
+
 
 
 
@@ -82,46 +171,68 @@ function initSlickSlider() {
 }
 
 
+
+// Create a GSAP timeline
+let tl;
+
+function cycleHeroText(){
+
+  if (window.innerWidth >= 768) {
+
+    if (!tl) {
+      tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
+
+      // Assuming you have an element with the class 'hero-text .a-wrapper'
+      var $textElement = $('.hero-text .a-wrapper');
+      
+      // Texts to be displayed and their timings in seconds
+      var textChanges = [
+        { text: 'home builders', time: 6.5 },
+        { text: 'renovators', time: 12.5 },
+        { text: 'remodelers', time: 19.5 },
+        { text: 'pool builders', time: 25.5 },
+        { text: 'roofers', time: 32.5 },
+        { text: 'contractors', time: 35 }
+      ];
+      
+      // Loop through each text change and set the timing
+      textChanges.forEach(function(change, index) {
+          // Fade out and change text at the specified time
+          tl.to($textElement, { duration: 0.5, autoAlpha: 0 }, change.time)
+            .call(() => {
+              // Change only the text content, preserving the nested span
+              $textElement.contents().filter(function() {
+                  return this.nodeType === 3; // Node.TEXT_NODE
+              }).remove();
+              $textElement.prepend(document.createTextNode(change.text));
+            }, null, change.time + 0.5)
+            .to($textElement, { duration: 0.5, autoAlpha: 1 }); // Fade in right after text change
+      });
+      
+    }
+    // Start the timeline
+    tl.play();
+  } else {
+    // stop cycling
+    if (tl) {
+      tl.pause(); // Or tl.kill() if you want to completely stop and dispose the timeline
+    }
+  }
+
+}
+
+
 initSlickSlider();
+cycleHeroText();
+mobileSliders();
 
 $(window).resize(function() {
   initSlickSlider();
+  cycleHeroText();
+  mobileSliders();
 });
 
 
-
-// Assuming you have an element with the class 'hero-text .a-wrapper'
-var $textElement = $('.hero-text .a-wrapper');
-
-// Texts to be displayed and their timings in seconds
-var textChanges = [
-  { text: 'home builders', time: 6.5 },
-  { text: 'renovators', time: 12.5 },
-  { text: 'remodelers', time: 19.5 },
-  { text: 'pool builders', time: 25.5 },
-  { text: 'roofers', time: 32.5 },
-  { text: 'contractors', time: 35 }
-];
-
-// Create a GSAP timeline
-var tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-
-// Loop through each text change and set the timing
-textChanges.forEach(function(change, index) {
-    // Fade out and change text at the specified time
-    tl.to($textElement, { duration: 0.5, autoAlpha: 0 }, change.time)
-      .call(() => {
-        // Change only the text content, preserving the nested span
-        $textElement.contents().filter(function() {
-            return this.nodeType === 3; // Node.TEXT_NODE
-        }).remove();
-        $textElement.prepend(document.createTextNode(change.text));
-      }, null, change.time + 0.5)
-      .to($textElement, { duration: 0.5, autoAlpha: 1 }); // Fade in right after text change
-});
-
-// Start the timeline
-tl.play();
 
 
 $('.testimonial-nav .w-slider-dot').click(function(event){
@@ -146,6 +257,11 @@ document.addEventListener('swiped-right', function(e) {
     $wrap.toggleClass('alt-color');
   }
 });
+
+
+
+
+
 
   
 
