@@ -172,52 +172,39 @@ function initSlickSlider() {
 
 
 
-// Create a GSAP timeline
-let tl;
-
 function cycleHeroText(){
+  
+    let tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
 
-  if (window.innerWidth >= 768) {
-
-    if (!tl) {
-      tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
-
-      // Assuming you have an element with the class 'hero-text .a-wrapper'
-      var $textElement = $('.hero-text .a-wrapper');
-      
-      // Texts to be displayed and their timings in seconds
-      var textChanges = [
-        { text: 'home builders', time: 6.5 },
-        { text: 'renovators', time: 12.5 },
-        { text: 'remodelers', time: 19.5 },
-        { text: 'pool builders', time: 25.5 },
-        { text: 'roofers', time: 32.5 },
-        { text: 'contractors', time: 35 }
-      ];
-      
-      // Loop through each text change and set the timing
-      textChanges.forEach(function(change, index) {
-          // Fade out and change text at the specified time
-          tl.to($textElement, { duration: 0.5, autoAlpha: 0 }, change.time)
-            .call(() => {
-              // Change only the text content, preserving the nested span
-              $textElement.contents().filter(function() {
-                  return this.nodeType === 3; // Node.TEXT_NODE
-              }).remove();
-              $textElement.prepend(document.createTextNode(change.text));
-            }, null, change.time + 0.5)
-            .to($textElement, { duration: 0.5, autoAlpha: 1 }); // Fade in right after text change
-      });
-      
-    }
-    // Start the timeline
-    tl.play();
-  } else {
-    // stop cycling
-    if (tl) {
-      tl.pause(); // Or tl.kill() if you want to completely stop and dispose the timeline
-    }
-  }
+    // Assuming you have an element with the class 'hero-text .a-wrapper'
+    var $textElement = $('.hero-text .a-wrapper');
+    
+    // Texts to be displayed and their timings in seconds
+    var textChanges = [
+      { text: 'home builders', time: 6.5 },
+      { text: 'renovators', time: 12.5 },
+      { text: 'remodelers', time: 19.5 },
+      { text: 'pool builders', time: 25.5 },
+      { text: 'roofers', time: 32.5 },
+      { text: 'contractors', time: 35 }
+    ];
+    
+    // Loop through each text change and set the timing
+    textChanges.forEach(function(change, index) {
+        // Fade out and change text at the specified time
+        tl.to($textElement, { duration: 0.5, autoAlpha: 0 }, change.time)
+          .call(() => {
+            // Change only the text content, preserving the nested span
+            $textElement.contents().filter(function() {
+                return this.nodeType === 3; // Node.TEXT_NODE
+            }).remove();
+            $textElement.prepend(document.createTextNode(change.text));
+          }, null, change.time + 0.5)
+          .to($textElement, { duration: 0.5, autoAlpha: 1 }); // Fade in right after text change
+    });
+    
+  // Start the timeline
+  tl.play();
 
 }
 
@@ -228,7 +215,6 @@ mobileSliders();
 
 $(window).resize(function() {
   initSlickSlider();
-  cycleHeroText();
   mobileSliders();
 });
 
