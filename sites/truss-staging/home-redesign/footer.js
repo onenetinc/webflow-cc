@@ -173,7 +173,7 @@ function initSlickSlider() {
 
 
 function cycleHeroText(){
-  
+
     let tl = gsap.timeline({ repeat: -1, repeatDelay: 1 });
 
     // Assuming you have an element with the class 'hero-text .a-wrapper'
@@ -227,20 +227,6 @@ $('.testimonial-nav .w-slider-dot').click(function(event){
       $wrap.toggleClass('alt-color');
   } else {
       event.stopPropagation();
-  }
-});
-
-document.addEventListener('swiped-left', function(e) {
-  if (e.target.classList.contains('testimonial-wrap')) {
-    const $wrap = $(e.target);
-    $wrap.toggleClass('alt-color');
-  }
-});
-
-document.addEventListener('swiped-right', function(e) {
-  if (e.target.classList.contains('testimonial-wrap')) {
-    const $wrap = $(e.target);
-    $wrap.toggleClass('alt-color');
   }
 });
 

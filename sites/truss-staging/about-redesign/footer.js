@@ -6,12 +6,12 @@ $('.acc-toggle').click(function(){
 })
 
 // accent intro
-$(".main-heading em").each(function () {
+$("span.a-wrapper").each(function () {
   $(this).append("<span class='accent'></div>");
 });
 
 // Select all main elements with a class of ".accent"
-var $accents = $(".main-heading em");
+var $accents = $(".a-wrapper");
 
 // Loop through each main element
 $accents.each(function () {
