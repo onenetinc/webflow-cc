@@ -127,7 +127,7 @@ function mobileSliders(){
         $wrap.toggleClass('alt-color');
       }
     }
-    $('.w-slider').each(function(){
+    $('.testimonial-slider').each(function(){
       let $swiper = $(this)
       detectswipe($swiper, myfunction);
     })
