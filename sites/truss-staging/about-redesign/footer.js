@@ -52,6 +52,43 @@ $(".nav-link-block").click(function () {
 });
 
 
+function initSlickSlider() {
+  var $slider = $('.logo-marquee');
+
+  // Check if the screen width is less than or equal to 768px
+  if ($(window).width() <= 479) {
+      // Check if the slider is not initialized
+      if (!$slider.hasClass('slick-initialized')) {
+          $slider.slick({
+            speed: 4000,
+            autoplay: true,
+            autoplaySpeed: 0,
+            centerMode: true,
+            cssEase: 'linear',
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            variableWidth: true,
+            infinite: true,
+            initialSlide: 1,
+            arrows: false,
+            buttons: false
+          });
+      }
+  } else {
+      // If the screen is larger than 768px and the slider is initialized, unslick it
+      if ($slider.hasClass('slick-initialized')) {
+          $slider.slick('unslick');
+      }
+  }
+}
+
+
+initSlickSlider();
+
+$(window).resize(function() {
+  initSlickSlider();
+});
+
 
 
 
