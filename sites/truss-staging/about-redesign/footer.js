@@ -29,11 +29,9 @@ $accents.each(function () {
   tl.fromTo(
     $main.find(".accent"),
     {
-      // width: "0%",
       opacity: "0"
     },
     {
-      // width: "102%",
       opacity: "1"
     }
   );

@@ -1,6 +1,40 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+
+var Webflow = Webflow || [];
+Webflow.push(function () {
+  var namespace = '.w-slider';
+  function slideChangeEvent(evt) {
+    var slider;
+    if($(evt.target).is(namespace)) {
+      slider = $(evt.target);
+    } else {
+      slider = $(evt.target).closest(namespace)
+    }
+    if(slider) {
+      $(slider).trigger('slider-event', $(slider).data(namespace));
+    }
+  }
+  var tap_selector = $.map(['.w-slider-arrow-left', '.w-slider-arrow-right', '.w-slider-dot'], function(s) { return namespace + ' ' + s; }).join(', ');
+  // listeners
+  $(document).off('tap' + namespace, tap_selector, slideChangeEvent).on('tap' + namespace, tap_selector, slideChangeEvent);
+  $(document).off('swipe' + namespace, namespace, slideChangeEvent).on('swipe' + namespace, namespace, slideChangeEvent);
+  // initial slide - manually trigger the event
+  $(namespace + ':visible').each(function(i, s) {
+    slideChangeEvent({ target: s });
+  });
+});
+
+// change colour when sliders change
+Webflow.push(function () {
+  $(document).on('slider-event', '.w-slider', function(e, data) {
+      const $slider = $(e.target);
+      const $wrapper = $slider.closest('.testimonial-wrap');
+      $wrapper.toggleClass('alt-color');
+ 	});
+});
+
 // accent intro
 $("span.a-wrapper").each(function () {
   $(this).append("<span class='accent'></div>");
@@ -25,11 +59,9 @@ $accents.each(function () {
   tl.fromTo(
     $main.find(".accent"),
     {
-      // width: "0%",
       opacity: "0"
     },
     {
-      // width: "102%",
       opacity: "1"
     }
   );
@@ -47,7 +79,7 @@ $(".nav-link-block").click(function () {
   $(this).closest(".w-dropdown").triggerHandler("w-close.w-dropdown");
 });
 
-function mobileSliders(){
+function mobileSliders() {
   
   if (window.innerWidth <= 992) {
     // detect swipes
@@ -211,23 +243,9 @@ function cycleHeroText(){
 
 initSlickSlider();
 cycleHeroText();
-mobileSliders();
 
 $(window).resize(function() {
   initSlickSlider();
-  mobileSliders();
-});
-
-
-
-
-$('.testimonial-nav .w-slider-dot').click(function(event){
-  if (!$(this).hasClass('w-active')) {
-      const $wrap = $(this).closest('.testimonial-wrap');
-      $wrap.toggleClass('alt-color');
-  } else {
-      event.stopPropagation();
-  }
 });
 
 
