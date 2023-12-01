@@ -1,8 +1,37 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 $('.acc-toggle').click(function(){
-  $(this).closest('.acc').toggleClass('active');
+  let $wrap = $(this).closest('.flex-v-c');
+  let $currentAcc = $(this).closest('.acc');
+  let $currentContent = $currentAcc.find('.acc-content');
+  let speed = 300;
+
+  let contentActualHeight = $currentContent.prop('scrollHeight');
+
+  if ($currentAcc.hasClass('active')) {
+    $currentContent.animate({ maxHeight: '0px' }, speed, function() {
+      $currentAcc.removeClass('active');
+    });
+  } else {
+    $wrap.find('.acc').each(function() {
+      let $acc = $(this);
+      let $content = $acc.find('.acc-content');
+
+      if ($acc.is($currentAcc)) {
+        // Open the clicked accordion
+        $content.animate({ maxHeight: contentActualHeight + 'px' }, speed);
+        $acc.addClass('active');
+      } else {
+        // Close other accordions
+        $content.animate({ maxHeight: '0px' }, speed, function() {
+          $acc.removeClass('active');
+        });
+      }
+    });
+  }
+
 })
 
 // accent intro
