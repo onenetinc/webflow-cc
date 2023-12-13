@@ -1,5 +1,15 @@
+let images = $('.fw-image');
 
-gsap.registerPlugin(ScrollTrigger);
+images.each(function() {
+  const currentImg = $(this); // Reference to the current jQuery image element in the loop
+  const tempImg = new Image();
+  tempImg.src = currentImg.attr('src');
+
+  tempImg.onload = () => {
+    currentImg.addClass('img-loaded'); // Add the class only to the currently loaded image
+  };
+});
+
 
 
 var Webflow = Webflow || [];
@@ -35,7 +45,11 @@ Webflow.push(function () {
  	});
 });
 
+
+
 // accent intro
+gsap.registerPlugin(ScrollTrigger);
+
 $("span.a-wrapper").each(function () {
   $(this).append("<span class='accent'></div>");
 });
