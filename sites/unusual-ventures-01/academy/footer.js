@@ -302,7 +302,8 @@ const applicationDateString = $('#applicationDate').text().trim();
 const applicationDate = new Date(applicationDateString); // Replace with the actual date
 const today = new Date();
 const differenceInDays = (applicationDate - today) / (1000 * 3600 * 24);
-const applicationOpen = differenceInDays >= -1 && differenceInDays <= 9;
+let applicationOpen = differenceInDays >= -1 && differenceInDays <= 29;
+
 
 
 $('#applicationDateSwap').text(applicationDateString + "!")
