@@ -31,7 +31,11 @@
   // Check if the page path should use a template
   var segments = pagePath.split('/');
   if (segments.length > 1) {
-    pagePath = segments[0] + '-template'; // Always use the template folder for collection URLs
+    if (segments[0].includes('product') || segments[0].includes('dev') || segments[0].includes('wip')) {
+      // don't change pagePath
+    } else {
+      pagePath = segments[0] + '-template'; // Always use the template folder for collection URLs
+    }
   }
 
   var globalFiles = [
