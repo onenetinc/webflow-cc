@@ -1,6 +1,6 @@
 const mainPathname = window.location.pathname.replace(/^\//, '');
 
-if (mainPathname.includes('product')) {
+if (mainPathname.split('/')[0] == 'product') {
 
   function getPlainPath() {
     const pathname = window.location.pathname.replace(/^\//, '');
