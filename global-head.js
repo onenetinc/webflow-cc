@@ -33,7 +33,7 @@
   // Check if the page path should use a template
   var segments = pagePath.split('/');
   if (segments.length > 1) {
-    if (segments[0].includes('product') || segments[0].includes('dev') || segments[0].includes('wip')) {
+    if (segments[0].includes('product') || segments[0].includes('dev') || segments[0].includes('wip') || segments[0] == 'u') {
       // don't change pagePath
     } else {
       pagePath = segments[0] + '-template'; // Always use the template folder for collection URLs
