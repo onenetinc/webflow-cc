@@ -47,7 +47,6 @@ if (mainPathname.split('/')[0] == 'product') {
     screens: { category: 'Accessories', subcategory: ['Screens'] },
   }
 
-
   // fetch collection
   async function loadProducts() {
 
@@ -109,6 +108,8 @@ if (mainPathname.split('/')[0] == 'product') {
     }
     
     const allProductsArray = await fetchAllProducts();
+
+    console.log("allProductsArray: ", allProductsArray);
     
     
     
