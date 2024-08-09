@@ -1,5 +1,33 @@
 const mainPathname = window.location.pathname.replace(/^\//, '');
 
+function setItemWithExpiry(key, value, expiryTimeInMinutes) {
+  const now = new Date();
+  const item = {
+    value: value,
+    expiry: now.getTime() + expiryTimeInMinutes * 60 * 1000,
+  };
+  localStorage.setItem(key, JSON.stringify(item));
+}
+
+function getItemWithExpiry(key) {
+  const itemStr = localStorage.getItem(key);
+  
+  if (!itemStr) {
+    return null;
+  }
+
+  const item = JSON.parse(itemStr);
+  const now = new Date();
+
+  // If the item has expired, remove it from storage and return null
+  if (now.getTime() > item.expiry) {
+    localStorage.removeItem(key);
+    return null;
+  }
+
+  return item.value;
+}
+
 if (mainPathname.split('/')[0] == 'product') {
 
   function getPlainPath() {
@@ -47,11 +75,14 @@ if (mainPathname.split('/')[0] == 'product') {
     screens: { category: 'Accessories', subcategory: ['Screens'] },
   }
 
+  console.log("about to load products!")
+
   // fetch collection
   async function loadProducts() {
 
     async function fetchAllProducts() {
-      const allProducts = localStorage.getItem('allProducts') ? JSON.parse(localStorage.getItem('allProducts')) : null;
+      getItemWithExpiry('allProducts');
+      const allProducts = getItemWithExpiry('allProducts') ? JSON.parse(getItemWithExpiry('allProducts')) : null;
       if (allProducts) {
         return allProducts;
       } else {
@@ -99,7 +130,7 @@ if (mainPathname.split('/')[0] == 'product') {
             
             Promise.all(loadPromises).then(results => {
               console.log("about to set storage?")
-              localStorage.setItem('allProducts', JSON.stringify(results));
+              setItemWithExpiry('allProducts', JSON.stringify(results), 20);
               resolve(results);
             });
           }).fail(reject);
