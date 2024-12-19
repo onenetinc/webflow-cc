@@ -57,9 +57,9 @@ if (mainPathname.split('/')[0] == 'product') {
     new: { category: 'New' },
     "seating-all": { category: 'Seating', subcategory: ['All'] },
     sofas: { category: 'Seating', subcategory: ['Sofas'] },
-    chairs: { category: 'Seating', subcategory: ['Chairs'] },
+    "lounge-chairs": { category: 'Seating', subcategory: ['Lounge Chairs'] },
     chaises: { category: 'Seating', subcategory: ['Chaises'] },
-    "dining-chair": { category: 'Seating', subcategory: ['Dining chair'] },
+    "dining-chair": { category: 'Seating', subcategory: ['Dining Chairs'] },
     benches: { category: 'Seating', subcategory: ['Benches'] },
     "tables-all": { category: 'Tables', subcategory: ['All'] },
     "side-tables": { category: 'Tables', subcategory: ['Side Tables'] },
@@ -144,9 +144,11 @@ if (mainPathname.split('/')[0] == 'product') {
     
     
     
-    
-    
+    // shelving: { category: 'Storage', subcategory: ['Shelving'] },
+    // console.log("pagePathName: ", pagePathName);
     dataArray = allProductsArray.filter(res => {
+      // console.log("res.category: ", res.category);
+      // console.log("res.subcategory: ", res.subcategory);
       if (res && pagePathName === 'all') {
         return res
       } else if (res && pagePathName == 'new') {
@@ -154,9 +156,11 @@ if (mainPathname.split('/')[0] == 'product') {
       } else if (res && (res.category === pages[pagePathName]?.category && pages[pagePathName]?.subcategory.includes('All'))) {
         return res
       } else if (res && (res.category === pages[pagePathName]?.category && pages[pagePathName]?.subcategory.includes(res.subcategory))) {
+        console.log("made here..")
         return res
       }
     });      
+    // console.log("dataArray: ", dataArray);
     const b = document.getElementById("pig");
     
     new Pig(dataArray, {
