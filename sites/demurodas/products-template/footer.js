@@ -46,7 +46,6 @@ firebase.auth().onAuthStateChanged((user) => {
 
 });
 
-
 const getPricing = async () => {
 
   try {
@@ -57,6 +56,8 @@ const getPricing = async () => {
       price.style.display = 'block';
 
       const sku = document.getElementById('sku').innerText;
+
+    //   const sku = "ACANTHA CENTER TABLE 001-A"; // testing
 
       const token = await firebase.auth().currentUser.getIdToken(true);
 
@@ -73,12 +74,14 @@ const getPricing = async () => {
           priceHeadings.forEach(el => el.style.display = 'block');
 
       } else {
-
+            console.log("failed");
           throw post.status;
 
       }
 
   } catch (err) {
+
+    console.log("catch: ", err);
 
       Sentry.captureException(err);
       price.innerHTML = 'Please contact us for pricing';

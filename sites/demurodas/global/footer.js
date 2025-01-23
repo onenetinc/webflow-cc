@@ -224,9 +224,10 @@ if (mainPathname.split('/')[0] == 'product') {
 
 // from old utilities.js
 
-// const base = 'http://localhost:5001/demurodas/us-central1';
+// const base = 'http://localhost:8888/.netlify/functions';
 // const base = 'https://us-central1-demurodas.cloudfunctions.net';
-const base = 'https://demurodas.netlify.app/.netlify/functions';
+
+const base = 'https://demurodas.netlify.app/.netlify/functions'; // live one
 
 const signUpUrl = `${base}/signUp`;
 const getPrivateWfDataUrl = `${base}/getPrivateWfData`;

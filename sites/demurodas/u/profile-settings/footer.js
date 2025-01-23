@@ -36,8 +36,6 @@ const loadProfile = async () => {
 
     try {
 
-        console.log(`Loading user profile...`);
-
         const token = await firebase.auth().currentUser.getIdToken(true);
         const user = firebase.auth().currentUser;
         const id = user.uid;
@@ -45,9 +43,7 @@ const loadProfile = async () => {
         const post = await fetch(`${getProfileUrl}?token=${token}&id=${id}`);
 
         if (post.status === 200) {
-
-            const body = await post.json();
-            const obj = JSON.parse(body);
+            const obj = await post.json();
             displayName = user.displayName;
             firstName = displayName.split(' ')[0];
             lastName = displayName.split(' ')[1];
@@ -77,13 +73,11 @@ const loadProfile = async () => {
             document.getElementById('waitingContainer').style.display = 'none';
 
         } else {
-
             throw post.status;
 
         }
 
     } catch (err) {
-
         Sentry.captureException(err);
 
     }
