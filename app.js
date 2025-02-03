@@ -3,6 +3,13 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import https from 'https';
+
+
+const httpsOptions = {
+  key: fs.readFileSync('localhost-key.pem'),
+  cert: fs.readFileSync('localhost.pem'),
+};
 
 
 import { fileURLToPath } from 'url';
@@ -71,6 +78,7 @@ app.get('/config', (req, res) => {
   res.json({ port: process.env.PORT });
 });
 
-app.listen(port, () => {
-  console.log(`Dev server is running at http://localhost:${port}`);
+
+https.createServer(httpsOptions, app).listen(port, () => {
+  console.log(`Dev server is running at https://localhost:${port}`);
 });
