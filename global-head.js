@@ -2,7 +2,7 @@
 // const DEV_MODE = true; // SET IN WEBFLOW - Change to false to not load dev server
 // const SITENAME = 'jetpay' // SET IN WEBFLOW - Change to the proper sitename folder in webflow-cc
 (async function() {
-  var devServerURL = 'http://localhost:3000';
+  var devServerURL = 'https://localhost:3000';
   var netlifyURL = `https://onenet-cc.netlify.app/sites/${SITENAME}`;
   var baseURL;
 
