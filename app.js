@@ -18,7 +18,18 @@ const port = process.env.PORT || 3000; // if you change the port, the global-foo
 const app = express();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use(cors({
+  origin: '*',  // Allow all origins (or specify your frontend URL)
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.sendStatus(204);
+});
 
 // create dynamic routes for serverless functions to be served locally for testing
 const functionsDir = path.join(__dirname, '.netlify', 'functions');
