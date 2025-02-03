@@ -1,5 +1,5 @@
 (async function() {
-  var devServerURL = 'http://localhost:3000';
+  var devServerURL = 'https://localhost:3000';
   var netlifyURL = `https://onenet-cc.netlify.app/sites/${SITENAME}`;
   var baseURL;
 
