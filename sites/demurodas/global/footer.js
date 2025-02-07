@@ -83,64 +83,136 @@ if (mainPathname.split('/')[0] == 'product') {
     async function fetchAllProducts() {
       getItemWithExpiry('allProducts');
       const allProducts = getItemWithExpiry('allProducts') ? JSON.parse(getItemWithExpiry('allProducts')) : null;
+    
       if (allProducts) {
         return allProducts;
       } else {
-        return new Promise((resolve, reject) => {
-          $.get("/dev/all-collection", function(data) {
-            var tempDom = $('<output>').append($.parseHTML(data));    
-            var listItems = tempDom.find("span");
-            let loadPromises = [];
-        
-            listItems.each(function() {
-              let $item = $(this);
-              let $img = $item.next('img');
-        
-              let loadPromise = new Promise((resolve) => {
-                $img.on('load', function() {
-                  let naturalWidth = this.naturalWidth;
-                  let naturalHeight = this.naturalHeight;
-        
-                  // Ensure dimensions are valid numbers
-                  if (naturalWidth && naturalHeight) {
-                      let aspectRatio = naturalWidth / naturalHeight;
-                      resolve({
-                        filename: $item.data('src')?.split(cmsImageBaseUrl)[1],
-                        name: $item.data('name'),
-                        slug: $item.data('slug'),
-                        aspectRatio: aspectRatio,
-                        category: $item.data('category'),
-                        subcategory: $item.data('subcategory'),
-                        new: $item.data('new')
-                    });
-                  } else {
-                    console.log('Invalid dimensions for image', $img.attr('src'));
-                    resolve(null);
-                  }
-                });
-                // Trigger load event manually if the image is already loaded
-                if ($img[0].complete) {
-                  $img.trigger('load');
+        try {
+          const response = await fetch("/dev/all-collection");
+    
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+          }
+    
+          const data = await response.text(); // Fetch returns raw HTML as text
+          const tempDom = document.createElement('output');
+          tempDom.innerHTML = data;
+    
+          const listItems = tempDom.querySelectorAll("span");
+          let loadPromises = [];
+    
+          listItems.forEach(($item) => {
+            let $img = $item.nextElementSibling; // Get next sibling image
+    
+            let loadPromise = new Promise((resolve) => {
+              if (!$img || $img.tagName !== "IMG") {
+                resolve(null);
+                return;
+              }
+    
+              $img.onload = function () {
+                let naturalWidth = this.naturalWidth;
+                let naturalHeight = this.naturalHeight;
+    
+                if (naturalWidth && naturalHeight) {
+                  let aspectRatio = naturalWidth / naturalHeight;
+                  resolve({
+                    filename: $item.dataset.src?.split(cmsImageBaseUrl)[1],
+                    name: $item.dataset.name,
+                    slug: $item.dataset.slug,
+                    aspectRatio: aspectRatio,
+                    category: $item.dataset.category,
+                    subcategory: $item.dataset.subcategory,
+                    new: $item.dataset.new
+                  });
+                } else {
+                  console.log('Invalid dimensions for image', $img.src);
+                  resolve(null);
                 }
-              });
-              
-              loadPromises.push(loadPromise);
-        
+              };
+    
+              // If image is already loaded
+              if ($img.complete) {
+                $img.onload();
+              }
             });
-            
-            Promise.all(loadPromises).then(results => {
-              console.log("about to set storage?")
-              setItemWithExpiry('allProducts', JSON.stringify(results), 20);
-              resolve(results);
-            });
-          }).fail(reject);
-        });
+    
+            loadPromises.push(loadPromise);
+          });
+    
+          const results = await Promise.all(loadPromises);
+          console.log("about to set storage?");
+          setItemWithExpiry('allProducts', JSON.stringify(results), 20);
+          return results;
+        } catch (error) {
+          console.error("Failed to fetch products:", error);
+          return [];
+        }
       }
     }
     
+
+    // async function fetchAllProducts() {
+    //   getItemWithExpiry('allProducts');
+    //   const allProducts = getItemWithExpiry('allProducts') ? JSON.parse(getItemWithExpiry('allProducts')) : null;
+    //   if (allProducts) {
+    //     return allProducts;
+    //   } else {
+    //     return new Promise((resolve, reject) => {
+    //       $.get("/dev/all-collection", function(data) {
+    //         var tempDom = $('<output>').append($.parseHTML(data));    
+    //         var listItems = tempDom.find("span");
+    //         let loadPromises = [];
+        
+    //         listItems.each(function() {
+    //           let $item = $(this);
+    //           let $img = $item.next('img');
+        
+    //           let loadPromise = new Promise((resolve) => {
+    //             $img.on('load', function() {
+    //               let naturalWidth = this.naturalWidth;
+    //               let naturalHeight = this.naturalHeight;
+        
+    //               // Ensure dimensions are valid numbers
+    //               if (naturalWidth && naturalHeight) {
+    //                   let aspectRatio = naturalWidth / naturalHeight;
+    //                   resolve({
+    //                     filename: $item.data('src')?.split(cmsImageBaseUrl)[1],
+    //                     name: $item.data('name'),
+    //                     slug: $item.data('slug'),
+    //                     aspectRatio: aspectRatio,
+    //                     category: $item.data('category'),
+    //                     subcategory: $item.data('subcategory'),
+    //                     new: $item.data('new')
+    //                 });
+    //               } else {
+    //                 console.log('Invalid dimensions for image', $img.attr('src'));
+    //                 resolve(null);
+    //               }
+    //             });
+    //             // Trigger load event manually if the image is already loaded
+    //             if ($img[0].complete) {
+    //               $img.trigger('load');
+    //             }
+    //           });
+              
+    //           loadPromises.push(loadPromise);
+        
+    //         });
+            
+    //         Promise.all(loadPromises).then(results => {
+    //           console.log("about to set storage?")
+    //           setItemWithExpiry('allProducts', JSON.stringify(results), 20);
+    //           resolve(results);
+    //         });
+    //       }).fail(reject);
+    //     });
+    //   }
+    // }
+    
     const allProductsArray = await fetchAllProducts();
 
-    console.log("allProductsArray: ", allProductsArray);
+    // console.log("allProductsArray: ", allProductsArray);
     
     
     
@@ -160,6 +232,7 @@ if (mainPathname.split('/')[0] == 'product') {
         return res
       }
     });      
+
     // console.log("dataArray: ", dataArray);
     const b = document.getElementById("pig");
     

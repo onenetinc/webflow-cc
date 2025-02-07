@@ -5,7 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import https from 'https';
 
-
+// generated a self-signed certificate on Feb 3rd 2025. expires on May 3rd 2027
 const httpsOptions = {
   key: fs.readFileSync('localhost-key.pem'),
   cert: fs.readFileSync('localhost.pem'),
