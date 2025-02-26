@@ -224,8 +224,7 @@ if (mainPathname.split('/')[0] == 'product') {
       if (res && pagePathName === 'all') {
         return res
       } else if (res && pagePathName == 'new') {
-        console.log(res);
-        return res.new === true; // Explicitly check for true
+        return res.new === "true"; // Explicitly check for true string
       } else if (res && (res.category === pages[pagePathName]?.category && pages[pagePathName]?.subcategory.includes('All'))) {
         return res
       } else if (res && (res.category === pages[pagePathName]?.category && pages[pagePathName]?.subcategory.includes(res.subcategory))) {
