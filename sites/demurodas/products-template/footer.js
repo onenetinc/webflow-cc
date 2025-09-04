@@ -87,7 +87,8 @@ const getPricing = async () => {
   //     price.innerHTML = 'Please contact us for pricing';
   //
   // }
-
+    priceHeading.style.display = 'block';
+    price.style.display = 'block';
     price.innerHTML = 'Please contact us for pricing';
 
 }
