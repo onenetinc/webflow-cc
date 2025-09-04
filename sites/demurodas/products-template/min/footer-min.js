@@ -167,44 +167,71 @@ const setAuthedTearSheet = async () => {
 
     console.log('Setting private download');
 
+    // try {
+    //
+    //     const storageRef = firebase.storage().ref();
+    //
+    //     const loc = window.location.href.split('/');
+    //     const slug = loc[loc.length - 1];
+    //
+    //     const privRef = storageRef.child(`${privPath}/${slug}`);
+    //     const pubRef = storageRef.child(`${pubPath}/${slug}`);
+    //
+    //     const privUrl = await privRef.getDownloadURL();
+    //     const pubUrl = await pubRef.getDownloadURL();
+    //
+    //     const tearSheet = document.getElementById('tearSheet');
+    //     const options = document.getElementById('downloadOptionsWrapper');
+    //
+    //     tearSheet.addEventListener('click', () => {
+    //         if (options.style.display === 'none') {
+    //             options.style.display = 'block';
+    //         } else if (options.style.display === 'block') {
+    //             options.style.display = 'none';
+    //         }
+    //     });
+    //
+    //     document.getElementById('withPricing').addEventListener('click', () => window.open(privUrl, '_blank'));
+    //     document.getElementById('withoutPricing').addEventListener('click', () => window.open(pubUrl, '_blank'));
+    //
+    //     document.getElementById('dropdownIcon').style.display = 'block';
+    //     document.getElementById('downloadIcon').style.display = 'none';
+    //     document.getElementById('tearSheet').style.display = 'flex';
+    //     options.style.display = 'none';
+    //
+    // } catch (err) {
+    //
+    //     console.error(err);
+    //
+    // }
+
     try {
 
         const storageRef = firebase.storage().ref();
 
         const loc = window.location.href.split('/');
-        const slug = loc[loc.length - 1];
+        const page = loc[loc.length - 1];
+        const slug = page.split('?')[0];
 
-        const privRef = storageRef.child(`${privPath}/${slug}`);
         const pubRef = storageRef.child(`${pubPath}/${slug}`);
 
-        const privUrl = await privRef.getDownloadURL();
         const pubUrl = await pubRef.getDownloadURL();
 
-        const tearSheet = document.getElementById('tearSheet');
-        const options = document.getElementById('downloadOptionsWrapper');
+        document.getElementById('tearSheet').addEventListener('click', () => {
 
-        tearSheet.addEventListener('click', () => {
-            if (options.style.display === 'none') {
-                options.style.display = 'block';
-            } else if (options.style.display === 'block') {
-                options.style.display = 'none';
-            }
+            window.open(pubUrl, '_blank')
+
         });
 
-        document.getElementById('withPricing').addEventListener('click', () => window.open(privUrl, '_blank'));
-        document.getElementById('withoutPricing').addEventListener('click', () => window.open(pubUrl, '_blank'));
-
-        document.getElementById('dropdownIcon').style.display = 'block';
-        document.getElementById('downloadIcon').style.display = 'none';
+        document.getElementById('dropdownIcon').style.display = 'none';
+        document.getElementById('downloadIcon').style.display = 'block';
         document.getElementById('tearSheet').style.display = 'flex';
-        options.style.display = 'none';
 
     } catch (err) {
 
         console.error(err);
 
     }
-
 }
 
 const setPubTearSheet = async () => {
